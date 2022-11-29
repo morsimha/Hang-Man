@@ -20,46 +20,49 @@ public class HangManController {
     private Label labelWord;
     @FXML
     private Label labelLetters;
+
     @FXML
     private TextField guessField;
     @FXML
     private Button btnGuess;
 
 
-    private final int TRIES = 6;
+    private final int TRIES = 2;
     Words dict = new Words();
     HangManLogic game = new HangManLogic();
 
     public void initialize() throws FileNotFoundException {
-        labelTries.setText("" + TRIES);
+        labelTries.setText("mor");
         dict.ReadWords();
-        game.word = dict.generateWord(); // maybe private and get\set
-        game.prepWordLength(game.word.length());
+        game.finalWord = dict.generateWord(); // maybe private and get\set
+        game.prepWordLength(game.finalWord.length());
       //  System.out.println(game.word);
-        labelWord.setText(game.currGuess);
-        drawHangMan();
+        labelWord.setText(game.currWord);
+      //  drawHangMan();
     }
 
     @FXML
     private void btnPressed(){
-        if (game.triesLeft == 0)
+        if (game.triesLeft == 0) {
+            labelTries.setText(game.triesLeft + "");
+            labelWord.setText(game.finalWord);
             JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-        else
-        {
+        }
+        else {
             String guess = guessField.getText();
-            if (guess.length() == 1)
+            if (game.checkValidity(guess))
                 runGame(guess);
             else
-                JOptionPane.showMessageDialog(null, "Please enter one character only!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please enter one alphabetic character only!\nAlso, make sure you didnt try it yet.", "Error", JOptionPane.ERROR_MESSAGE);
             guessField.clear();
+            labelTries.setText("" + game.triesLeft);
         }
     }
 
     private void runGame(String guess){
+        game.checkGuess(guess);
         labelTries.setText("" + game.triesLeft);
-        game.guesses.add(guess);
-        game.checkGuess();
-        labelWord.setText(game.currGuess);
+        labelWord.setText(game.currWord);
         labelLetters.setText(game.guesses.toString());
     }
 

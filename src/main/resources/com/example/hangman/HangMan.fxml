@@ -19,7 +19,7 @@
             <Font name="Calibri" size="19.0" />
          </font>
       </Label>
-      <Label fx:id="labelTries" layoutX="312.0" layoutY="81.0" text="6">
+      <Label fx:id="labelTries" layoutX="312.0" layoutY="81.0" >
          <font>
             <Font name="Calibri" size="19.0" />
          </font>
