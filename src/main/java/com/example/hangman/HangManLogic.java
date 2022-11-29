@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HangManLogic {
-    ArrayList<Character> guesses = new ArrayList<>();
+    ArrayList<String> guesses = new ArrayList<>();
     String word;
     String currGuess = "";
+    int triesLeft = 6;
 
 
     public void prepWordLength(int len) {
@@ -15,21 +16,25 @@ public class HangManLogic {
 
     }
 
-    public void getGuess() {
-        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
-        System.out.print("Guess one letter please:");
-        char guess = sc.next().charAt(0);
-        guesses.add(guess);
-    }
+//    public void getGuess() {
+//        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
+//        System.out.print("Guess one letter please:");
+//        char guess = sc.next().charAt(0);
+//        guesses.add(guess);
+//    }
 
     public void checkGuess() {
-        char letter = guesses.get(guesses.size()-1);
+        boolean goodGuess = false;
+        char letter = guesses.get(guesses.size() - 1).charAt(0);
         for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) == letter)
-                currGuess = currGuess.substring(0, i) + letter + currGuess.substring(i+1);
+            if (word.charAt(i) == letter) {
+                currGuess = currGuess.substring(0, i) + letter + currGuess.substring(i + 1);
+                goodGuess = true;
+            }
         }
+        if (!goodGuess)
+            triesLeft--; //HANG THE MAN
     }
-
 
     public void createFirstGeneration() {
 //        ArrayList<String> words = new ArrayList<>();
