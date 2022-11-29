@@ -11,12 +11,13 @@ public class Words {
 
     public void ReadWords() throws FileNotFoundException {
 
-        File file = new File("C:\\Users\\morsimha\\IdeaProjects\\Hang-Man\\src\\main\\java\\com\\example\\hangman\\words.txt");
-        Scanner input = new Scanner(file);
+        Scanner input = new Scanner(new File("words.txt"));
 
 
         while (input.hasNext())
             words.add(input.next());
+
+        input.close();
     }
 
     public String generateWord(){
