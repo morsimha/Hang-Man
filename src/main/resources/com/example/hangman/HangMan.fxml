@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="550.0" style="-fx-background-color: #A4E79D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hangman.HangManController">
@@ -26,7 +25,7 @@
             <Font name="Calibri" size="19.0" />
          </font>
       </Label>
-      <Label fx:id="labelLetters" layoutX="163.0" layoutY="451.0" text="6">
+      <Label fx:id="labelLetters" layoutX="163.0" layoutY="451.0">
          <font>
             <Font name="Calibri" size="19.0" />
          </font>
@@ -52,8 +51,6 @@
             <Button fx:id="btnGuess" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#btnPressed" text="Go!" />
          </children>
       </HBox>
-      <Canvas fx:id="cnvs" height="209.0" layoutX="43.0" layoutY="116.0" width="470.0" />
-      <Line fx:id="firstLine" endX="191.0" layoutX="275.0" layoutY="325.0" startX="112.0" />
-      <Line endX="142.0" endY="133.0" layoutX="286.0" layoutY="192.0" startX="142.0" startY="-54.0" />
+      <Canvas fx:id="cnvs" height="224.0" layoutX="43.0" layoutY="116.0" width="470.0" />
    </children>
 </AnchorPane>

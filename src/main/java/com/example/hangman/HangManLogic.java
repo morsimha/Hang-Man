@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public class HangManLogic {
     ArrayList<String> guesses = new ArrayList<>();
-    String finalWord;
-    String currWord = "";
-    int triesLeft = 2;
+    String fullWord;
+    String currGuess = "";
+    boolean correctGuess;
+    int triesLeft = 6;
 
 
     public void prepWordLength(int len) {
         for (int i = 0; i < len; i++)
-            currWord += "_";
+            currGuess += "_";
 
     }
 
@@ -23,24 +24,23 @@ public class HangManLogic {
 //    }
 
     public void checkGuess(String guess) {
-        boolean correctGuess = false;
+        correctGuess = false;
         guesses.add(guess);
         char letter = guesses.get(guesses.size() - 1).charAt(0);
-        for (int i = 0; i < finalWord.length(); i++) {
-            if (finalWord.charAt(i) == letter) {
-                currWord = currWord.substring(0, i) + letter + currWord.substring(i + 1);
+        for (int i = 0; i < fullWord.length(); i++) {
+            if (fullWord.charAt(i) == letter) {
+                currGuess = currGuess.substring(0, i) + letter + currGuess.substring(i + 1);
                 correctGuess = true;
             }
         }
         if (!correctGuess)
-            triesLeft--; //HANG THE MAN
+            triesLeft--;
     }
 
 
     public boolean checkValidity(String guess) {
         boolean validGuess = true;
-
-        if (Character.isLetter(guess.charAt(0)) && guess.length() == 1) { // if its valid, check it didnt show yet
+        if (guess.length() == 1 && Character.isLetter(guess.charAt(0))) { // if its valid, check it didnt show yet
             for (String g : guesses)
                 if (guess.equals(g)) {
                     validGuess = false;
@@ -53,16 +53,5 @@ public class HangManLogic {
         return validGuess;
     }
 
-
-
-        public void createFirstGeneration() {
-//        ArrayList<String> words = new ArrayList<>();
-//        words.add("bridge");
-//        words.add("polymorphism");
-//        words.add("water");
-//        words.add("sophisticated");
-//        words.add("flute");
-
-    }
 
 }

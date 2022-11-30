@@ -7,13 +7,15 @@ package com.example.hangman;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Line;
 
+import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 
 public class HangManController {
     @FXML
@@ -31,25 +33,26 @@ public class HangManController {
     @FXML
     private Canvas cnvs;
 
-    @FXML
-    private Line firstLine;
+    private GraphicsContext gc;
+    Words dict;
+    HangManLogic game;
+    private final int TRIES = 6;
 
-
-    private final int TRIES = 2;
-    Words dict = new Words();
-    HangManLogic game = new HangManLogic();
 
     public void initialize() throws FileNotFoundException {
+        dict = new Words();
+        game = new HangManLogic();
+        gc = cnvs.getGraphicsContext2D();
+        gc.setLineWidth(5);
         dict.ReadWords();
-        game.finalWord = dict.generateWord(); // maybe private and get\set
-        game.prepWordLength(game.finalWord.length());
-      //  System.out.println(game.word);
-        labelWord.setText(game.currWord);
-      //  drawHangMan();
+        game.fullWord = dict.generateWord(); // maybe private and get\set
+        game.prepWordLength(game.fullWord.length());
+        labelWord.setText(game.currGuess);
+        labelTries.setText("" + game.triesLeft);
     }
 
     @FXML
-    private void btnPressed(){
+    private void btnPressed() {
         String guess = guessField.getText();
         if (game.checkValidity(guess))
             runGame(guess);
@@ -59,30 +62,25 @@ public class HangManController {
 
         if (game.triesLeft == 0) {
             labelTries.setText(game.triesLeft + "");
-            labelWord.setText(game.finalWord);
+            labelWord.setText(game.fullWord);
             JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private void runGame(String guess){
         game.checkGuess(guess);
+        if (!game.correctGuess)
+            HangTheMan();
         labelTries.setText("" + game.triesLeft);
-        labelWord.setText(game.currWord);
+        labelWord.setText(game.currGuess);
         labelLetters.setText(game.guesses.toString());
     }
 
 
-    private void drawHangMan(){
-
-//        while (!game.currGuess.equals(game.word)) {
-//
-//            game.guesses.add(guessField.getText().charAt(0));
-//        //    game.getGuess();
-//            game.checkGuess();
-//            System.out.println(game.currGuess);
-//            labelWord.setText(game.currGuess);
-//           // labelLetters.setText(game.guesses.get(game.guesses.size()));
-//        }
-//        System.out.println("good job! the word was " + game.currGuess);
+    private void HangTheMan(){
+        gc.strokeLine(370,220,410,220);
     }
+
+
+
 }

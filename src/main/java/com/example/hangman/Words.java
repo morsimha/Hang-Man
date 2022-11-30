@@ -23,19 +23,8 @@ public class Words {
     public String generateWord(){
 
         Random rand = new Random();
-  //      System.out.println(words.get(4));
         String word = words.get(rand.nextInt(words.size()-1));
         return word;
-    }
-
-    public void doz (){
-        try {
-            ReadWords();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(generateWord());
-
     }
 
 }
