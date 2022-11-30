@@ -11,8 +11,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Line;
 
-import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -36,15 +36,18 @@ public class HangManController {
     private GraphicsContext gc;
     Words dict;
     HangManLogic game;
+    HangManBody body;
     private final int TRIES = 6;
 
 
     public void initialize() throws FileNotFoundException {
         dict = new Words();
         game = new HangManLogic();
+        body = new HangManBody();
         gc = cnvs.getGraphicsContext2D();
         gc.setLineWidth(5);
         dict.ReadWords();
+        body.build();
         game.fullWord = dict.generateWord(); // maybe private and get\set
         game.prepWordLength(game.fullWord.length());
         labelWord.setText(game.currGuess);
@@ -78,7 +81,10 @@ public class HangManController {
 
 
     private void HangTheMan(){
-        gc.strokeLine(370,220,410,220);
+        int currBodyPart = TRIES - game.triesLeft -1;
+        Line d = body.bodyParts.get(currBodyPart);
+        gc.strokeLine(d.getStartX(),d.getStartY(),d.getEndX(),d.getEndY());
+       // gc.strokeLine(370,220,410,220);
     }
 
 
