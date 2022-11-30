@@ -6,9 +6,11 @@
 package com.example.hangman;
 
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Line;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
@@ -26,13 +28,18 @@ public class HangManController {
     @FXML
     private Button btnGuess;
 
+    @FXML
+    private Canvas cnvs;
+
+    @FXML
+    private Line firstLine;
+
 
     private final int TRIES = 2;
     Words dict = new Words();
     HangManLogic game = new HangManLogic();
 
     public void initialize() throws FileNotFoundException {
-        labelTries.setText("mor");
         dict.ReadWords();
         game.finalWord = dict.generateWord(); // maybe private and get\set
         game.prepWordLength(game.finalWord.length());
@@ -43,19 +50,17 @@ public class HangManController {
 
     @FXML
     private void btnPressed(){
+        String guess = guessField.getText();
+        if (game.checkValidity(guess))
+            runGame(guess);
+        else
+            JOptionPane.showMessageDialog(null, "Please enter one alphabetic character only!\nAlso, make sure you didnt try it yet.", "Error", JOptionPane.ERROR_MESSAGE);
+        guessField.clear();
+
         if (game.triesLeft == 0) {
             labelTries.setText(game.triesLeft + "");
             labelWord.setText(game.finalWord);
             JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
-            String guess = guessField.getText();
-            if (game.checkValidity(guess))
-                runGame(guess);
-            else
-                JOptionPane.showMessageDialog(null, "Please enter one alphabetic character only!\nAlso, make sure you didnt try it yet.", "Error", JOptionPane.ERROR_MESSAGE);
-            guessField.clear();
-            labelTries.setText("" + game.triesLeft);
         }
     }
 

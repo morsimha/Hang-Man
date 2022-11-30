@@ -36,6 +36,7 @@ public class HangManLogic {
             triesLeft--; //HANG THE MAN
     }
 
+
     public boolean checkValidity(String guess) {
         boolean validGuess = true;
 
