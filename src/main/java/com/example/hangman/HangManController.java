@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 
@@ -35,12 +35,12 @@ public class HangManController {
     private Canvas cnvs;
 
     private GraphicsContext gc;
-    Words dict;
-    HangManLogic game;
-    HangManBody body;
+    private Words dict;
+    private HangManLogic game;
+    private HangManBody body;
     private final int TRIES = 7;
-    int drawCounter;
-    boolean finished;
+    private int drawCounter;
+    private boolean finished;
 
 
     public void initialize() throws FileNotFoundException {
@@ -63,8 +63,8 @@ public class HangManController {
             JOptionPane.showMessageDialog(null, "Please enter one alphabetic character only!\nAlso, make sure you didnt try it yet.", "Error", JOptionPane.ERROR_MESSAGE);
         guessField.clear();
 
-        if (game.triesLeft == 0) {
-            JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        if (game.getTriesLeft() == 0) {
+            JOptionPane.showMessageDialog(null, "Game Over!\nYou have passed the guesses limit.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
             finished = true;
         }
 
@@ -80,22 +80,15 @@ public class HangManController {
 
     @FXML
     private void noBtnPressed() {
-        Platform.exit(); //TODO maybe better solution.
+        Platform.exit();
+        JOptionPane.showMessageDialog(null, "Good Bye!", "GoodBye", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     @FXML
     private void keepBtnPressed() {
-        if (drawCounter < body.bodyParts.size())
+        if (drawCounter < body.getPartsAmount())
             hangTheMan();
-        else {
-//            FadeTransition ft = new FadeTransition(Duration.millis(3000), body.bodyParts.get(8));
-//            ft.setFromValue(1.0);
-//            ft.setToValue(0.1);
-//            ft.setCycleCount(Timeline.INDEFINITE);
-//            ft.setAutoReverse(true);
-//            ft.play();
-        }
-        System.out.println("bb");
     }
 
 
@@ -105,34 +98,34 @@ public class HangManController {
         guessBox.setVisible(true);
         finished = false;
         drawCounter = 0;
-        game.fullWord = dict.generateWord(); // maybe private and get\set
-        game.prepWordLength(game.fullWord.length());
+        game.setFullWord(dict.generateWord());
+        game.prepWordLength(game.getFullWord().length());
         updateLabels();
     }
 
     private void runGame(String guess) {
         game.checkGuess(guess);
-        if (!game.correctGuess)
+        if (!game.isCorrectGuess())
             hangTheMan();
         updateLabels();
     }
 
     @FXML
     private void finishGame() {
+        game.setGuess(game.getFullWord());
         updateLabels();
-        //fieldLabel.setText("\"Why is his head so round?\"");
         finishBox.setVisible(true);
         guessBox.setVisible(false);
     }
 
     private void hangTheMan() {
         int headInd = 4;
-        Line l = body.bodyParts.get(drawCounter);
+        Line l = body.getPart(drawCounter);
         if (drawCounter == 0) { //first time print the base
             gc.setStroke(Color.SADDLEBROWN);
-            Line base1 = body.bodyParts.get(++drawCounter);
-            Line base2 = body.bodyParts.get(++drawCounter);
-            Line base3 = body.bodyParts.get(++drawCounter);
+            Line base1 = body.getPart(++drawCounter);
+            Line base2 = body.getPart(++drawCounter);
+            Line base3 = body.getPart(++drawCounter);
             gc.strokeLine(l.getStartX(), l.getStartY(), l.getEndX(), l.getEndY());
             gc.strokeLine(base1.getStartX(), base1.getStartY(), base1.getEndX(), base1.getEndY());
             gc.strokeLine(base2.getStartX(), base2.getStartY(), base2.getEndX(), base2.getEndY());
@@ -149,10 +142,10 @@ public class HangManController {
     }
 
     private void updateLabels() {
-        wordLabel.setText(game.currGuess);
-        triesLabel.setText("" + game.triesLeft);
-        if (game.guesses.size()>0)
-            lettersLabel.setText(game.guesses.toString());
+        wordLabel.setText(game.getGuess());
+        triesLabel.setText("" + game.getTriesLeft());
+        if (game.getGuessesList().size()>0)
+            lettersLabel.setText(game.getGuessesList().toString());
 
     }
 }

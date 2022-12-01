@@ -4,7 +4,16 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 
 public class HangManBody {
-    ArrayList<Line> bodyParts = new ArrayList<Line>();
+    private ArrayList<Line> bodyParts = new ArrayList<Line>();
+
+
+    public Line getPart(int index){
+        return bodyParts.get(index);
+    }
+
+    public int getPartsAmount(){
+        return bodyParts.size();
+    }
 
     public void build() {
 
@@ -21,14 +30,6 @@ public class HangManBody {
         Line line4 = new Line(190, 200, 220, 170);
         Line line5 = new Line(250, 200, 220, 170);
 
-        Line dance1 = new Line(200, 200, 220, 170);
-        Line dance2 = new Line(260, 200, 220, 170);
-        Line dance3 = new Line(180, 200, 220, 170);
-        Line dance4 = new Line(240, 200, 220, 170);
-
-        //   Rectangle body1 = new Oval(370, 220, 410, 220);
-        //     Line line6 = new Line(370, 220, 410, 220);
-
         bodyParts.add(base1);
         bodyParts.add(base2);
         bodyParts.add(base3);
@@ -39,13 +40,6 @@ public class HangManBody {
         bodyParts.add(line3);
         bodyParts.add(line4);
         bodyParts.add(line5);
-        bodyParts.add(dance1);
-        bodyParts.add(dance2);
-//        bodyParts.add(dance3);
-//        bodyParts.add(dance4);
-
-
-
     }
 
 }

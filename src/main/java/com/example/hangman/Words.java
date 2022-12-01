@@ -6,8 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Words {
-    ArrayList<String> words = new ArrayList<>();
-
+    private ArrayList<String> words = new ArrayList<String>();
 
     public void ReadWords() throws FileNotFoundException {
         Scanner input = new Scanner(new File("words.txt"));

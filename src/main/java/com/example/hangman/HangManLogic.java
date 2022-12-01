@@ -3,11 +3,11 @@ package com.example.hangman;
 import java.util.ArrayList;
 
 public class HangManLogic {
-    ArrayList<String> guesses = new ArrayList<>();
-    String fullWord;
-    String currGuess = "";
-    boolean correctGuess;
-    int triesLeft = 7;
+    private ArrayList<String> guesses = new ArrayList<String>();
+    private String fullWord;
+    private String currGuess = "";
+    private boolean correctGuess;
+    private int triesLeft = 7;
 
     public void resetGame() {
         guesses.clear();
@@ -17,18 +17,32 @@ public class HangManLogic {
         triesLeft = 7;
     }
 
+    public String getFullWord(){
+        return fullWord;
+}
+    public String getGuess(){
+        return currGuess;
+    }
 
+    public boolean isCorrectGuess(){
+        return correctGuess;
+    }
+
+    public int getTriesLeft(){
+        return triesLeft;
+    }
+
+    public ArrayList getGuessesList(){
+        return guesses;
+    }
+
+    public void setFullWord(String word){
+        fullWord = word;
+    }
     public void prepWordLength(int len) {
         for (int i = 0; i < len; i++)
             currGuess += "_";
     }
-
-//    public void getGuess() {
-//        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
-//        System.out.print("Guess one letter please:");
-//        char guess = sc.next().charAt(0);
-//        guesses.add(guess);
-//    }
 
     public void checkGuess(String guess) {
         correctGuess = false;
@@ -65,4 +79,7 @@ public class HangManLogic {
     }
 
 
+    public void setGuess(String fullWord) {
+        currGuess = fullWord;
+    }
 }
