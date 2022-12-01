@@ -26,6 +26,8 @@ public class HangManController {
     @FXML
     private Label lettersLabel;
     @FXML
+    private Label upperLabel;
+    @FXML
     private VBox finishBox;
     @FXML
     private HBox guessBox;
@@ -80,9 +82,8 @@ public class HangManController {
 
     @FXML
     private void noBtnPressed() {
-        Platform.exit();
+        Platform.exit(); //TODO maybe better solution.
         JOptionPane.showMessageDialog(null, "Good Bye!", "GoodBye", JOptionPane.INFORMATION_MESSAGE);
-
     }
 
     @FXML
@@ -108,6 +109,7 @@ public class HangManController {
         if (!game.isCorrectGuess())
             hangTheMan();
         updateLabels();
+        upperLabel.setVisible(true);
     }
 
     @FXML
@@ -116,6 +118,8 @@ public class HangManController {
         updateLabels();
         finishBox.setVisible(true);
         guessBox.setVisible(false);
+        upperLabel.setVisible(false);
+
     }
 
     private void hangTheMan() {
@@ -142,10 +146,15 @@ public class HangManController {
     }
 
     private void updateLabels() {
+        String result;
+        if (game.isCorrectGuess())
+            result = "Great Guess!";
+        else
+            result = "Wrong guess..";
+        upperLabel.setText(result);
         wordLabel.setText(game.getGuess());
         triesLabel.setText("" + game.getTriesLeft());
-        if (game.getGuessesList().size()>0)
-            lettersLabel.setText(game.getGuessesList().toString());
+        lettersLabel.setText(game.getLetters());
 
     }
 }

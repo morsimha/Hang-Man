@@ -9,6 +9,12 @@ public class HangManLogic {
     private boolean correctGuess;
     private int triesLeft = 7;
 
+    public String getLetters(){
+        if (guesses.size() == 0)
+            return "";
+        return guesses.toString();
+    }
+
     public void resetGame() {
         guesses.clear();
         fullWord = "";
