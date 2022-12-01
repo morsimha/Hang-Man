@@ -4,21 +4,39 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 
 public class HangManBody {
-    ArrayList<Line> bodyParts = new ArrayList<>();
+    ArrayList<Line> bodyParts = new ArrayList<Line>();
 
     public void build() {
 
-        Line line1 = new Line(370, 220, 410, 220);
-        Line line2 = new Line(390, 20, 390, 220);
-        Line line3 = new Line(220, 20, 390, 20);
-        Line line4 = new Line(220, 20, 220, 70);
-     //   Rectangle body1 = new Oval(370, 220, 410, 220);
-   //     Line line6 = new Line(370, 220, 410, 220);
+        Line base1 = new Line(370, 220, 410, 220);
+        Line base2 = new Line(390, 20, 390, 220);
+        Line base3 = new Line(220, 20, 390, 20);
+        Line base4 = new Line(220, 20, 220, 30);
 
+        Line head = new Line(190, 30, 60, 60);
+
+        Line line1 = new Line(220, 90, 220, 200);
+        Line line2 = new Line(250, 120, 220, 150);
+        Line line3 = new Line(190, 120, 220, 150);
+        Line line4 = new Line(190, 250, 220, 200);
+        Line line5 = new Line(190, 250, 220, 200);
+
+        //   Rectangle body1 = new Oval(370, 220, 410, 220);
+        //     Line line6 = new Line(370, 220, 410, 220);
+
+        bodyParts.add(base1);
+        bodyParts.add(base2);
+        bodyParts.add(base3);
+        bodyParts.add(base4);
+        bodyParts.add(head);
         bodyParts.add(line1);
         bodyParts.add(line2);
         bodyParts.add(line3);
         bodyParts.add(line4);
+        bodyParts.add(line5);
+
+
 
     }
+
 }

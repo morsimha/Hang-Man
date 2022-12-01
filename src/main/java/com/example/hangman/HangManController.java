@@ -11,11 +11,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 
 public class HangManController {
     @FXML
@@ -37,7 +37,8 @@ public class HangManController {
     Words dict;
     HangManLogic game;
     HangManBody body;
-    private final int TRIES = 6;
+    private final int TRIES = 7;
+    int drawCounter = 0;
 
 
     public void initialize() throws FileNotFoundException {
@@ -64,6 +65,7 @@ public class HangManController {
         guessField.clear();
 
         if (game.triesLeft == 0) {
+            hangTheMan();
             labelTries.setText(game.triesLeft + "");
             labelWord.setText(game.fullWord);
             JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
@@ -73,20 +75,37 @@ public class HangManController {
     private void runGame(String guess){
         game.checkGuess(guess);
         if (!game.correctGuess)
-            HangTheMan();
+            hangTheMan();
         labelTries.setText("" + game.triesLeft);
         labelWord.setText(game.currGuess);
         labelLetters.setText(game.guesses.toString());
     }
 
 
-    private void HangTheMan(){
-        int currBodyPart = TRIES - game.triesLeft -1;
-        Line d = body.bodyParts.get(currBodyPart);
-        gc.strokeLine(d.getStartX(),d.getStartY(),d.getEndX(),d.getEndY());
-       // gc.strokeLine(370,220,410,220);
+    private void hangTheMan(){
+        int headInd = 4;
+        Line l = body.bodyParts.get(drawCounter);
+
+        if (drawCounter == 0) { //first time print the base
+            gc.setStroke(Color.SADDLEBROWN);
+            Line base1 = body.bodyParts.get(++drawCounter);
+            Line base2 = body.bodyParts.get(++drawCounter);
+            Line base3 = body.bodyParts.get(++drawCounter);
+            gc.strokeLine(l.getStartX(),l.getStartY(),l.getEndX(),l.getEndY());
+            gc.strokeLine(base1.getStartX(),base1.getStartY(),base1.getEndX(),base1.getEndY());
+            gc.strokeLine(base2.getStartX(),base2.getStartY(),base2.getEndX(),base2.getEndY());
+            gc.strokeLine(base3.getStartX(),base3.getStartY(),base3.getEndX(),base3.getEndY());
+
+        }
+        else if (drawCounter == headInd) { //draw the head as oval
+            gc.setStroke(Color.BLACK);
+            gc.strokeOval(l.getStartX(), l.getStartY(), l.getEndX(), l.getEndY());
+        }
+        else {//draw normally
+            gc.setStroke(Color.BLACK);
+            gc.strokeLine(l.getStartX(), l.getStartY(), l.getEndX(), l.getEndY());
+        }
+        drawCounter++;
     }
 
-
-
-}
+    }

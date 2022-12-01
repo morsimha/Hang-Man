@@ -7,7 +7,7 @@ public class HangManLogic {
     String fullWord;
     String currGuess = "";
     boolean correctGuess;
-    int triesLeft = 6;
+    int triesLeft = 7;
 
 
     public void prepWordLength(int len) {
