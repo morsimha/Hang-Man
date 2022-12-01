@@ -15,11 +15,11 @@ public class HangManBody {
 
         Line head = new Line(190, 30, 60, 60);
 
-        Line line1 = new Line(220, 90, 220, 200);
-        Line line2 = new Line(250, 120, 220, 150);
-        Line line3 = new Line(190, 120, 220, 150);
-        Line line4 = new Line(190, 250, 220, 200);
-        Line line5 = new Line(250, 250, 220, 200);
+        Line line1 = new Line(220, 90, 220, 170);
+        Line line2 = new Line(250, 120, 220, 130);
+        Line line3 = new Line(190, 120, 220, 130);
+        Line line4 = new Line(190, 200, 220, 170);
+        Line line5 = new Line(250, 200, 220, 170);
 
         //   Rectangle body1 = new Oval(370, 220, 410, 220);
         //     Line line6 = new Line(370, 220, 410, 220);

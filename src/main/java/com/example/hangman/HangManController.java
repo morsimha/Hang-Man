@@ -8,29 +8,28 @@ package com.example.hangman;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
 import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class HangManController {
     @FXML
-    private Label labelTries;
+    private Label triesLabel;
     @FXML
-    private Label labelWord;
+    private Label wordLabel;
     @FXML
-    private Label labelLetters;
+    private Label lettersLabel;
     @FXML
-    private Label fieldLable;
+    private VBox finishBox;
+    @FXML
+    private HBox guessBox;
     @FXML
     private TextField guessField;
-    @FXML
-    private Button btnGuess;
-
     @FXML
     private Canvas cnvs;
 
@@ -54,14 +53,8 @@ public class HangManController {
     }
 
     @FXML
-    private void btnPressed() {
+    private void goBtnPressed() {
         String guess = guessField.getText();
-
-        if(guess.equals("Y")) {
-            game.resetGame();
-            initGame();
-        }
-
         if (game.checkValidity(guess))
             runGame(guess);
         else
@@ -69,41 +62,52 @@ public class HangManController {
         guessField.clear();
 
         if (game.triesLeft == 0) {
-     //       hangTheMan();
             JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
             finishGame();
         }
 
         if (game.checkWin())
           finishGame();
-
     }
+
+    @FXML
+    private void yesBtnPressed() {
+        game.resetGame();
+        initGame();
+    }
+
+    @FXML
+    private void noBtnPressed() {
+        System.out.println("bb");
+    }
+
+
     private void initGame() {
         gc.clearRect(0, 0, cnvs.getWidth(), cnvs.getHeight());
+        finishBox.setVisible(false);
+        guessBox.setVisible(true);
         drawCounter = 0;
         game.fullWord = dict.generateWord(); // maybe private and get\set
         game.prepWordLength(game.fullWord.length());
-        labelWord.setText(game.currGuess);
-        labelTries.setText("" + game.triesLeft);
+        wordLabel.setText(game.currGuess);
+        triesLabel.setText("" + game.triesLeft);
     }
 
     private void runGame(String guess){
         game.checkGuess(guess);
         if (!game.correctGuess)
             hangTheMan();
-        labelTries.setText("" + game.triesLeft);
-        labelWord.setText(game.currGuess);
-        labelLetters.setText(game.guesses.toString());
+        triesLabel.setText("" + game.triesLeft);
+        wordLabel.setText(game.currGuess);
+        lettersLabel.setText(game.guesses.toString());
     }
 
     private void finishGame(){
-        labelTries.setText(game.triesLeft + "");
-        labelWord.setText(game.fullWord);
-        fieldLable.setText("Would you like to play again? Y/N");
-        gc.setStroke(Color.PINK);
-        Line l = body.bodyParts.get(drawCounter-1);
-        gc.strokeOval(0, 0, 70, 70);
-     //   JOptionPane.showMessageDialog(null, "Play again?", "not Error", JOptionPane.QUESTION_MESSAGE);
+        triesLabel.setText(game.triesLeft + "");
+        wordLabel.setText(game.fullWord);
+        //fieldLabel.setText("\"Why is his head so round?\"");
+        finishBox.setVisible(true);
+        guessBox.setVisible(false);
     }
 
     private void hangTheMan(){
@@ -118,7 +122,7 @@ public class HangManController {
             gc.strokeLine(base1.getStartX(),base1.getStartY(),base1.getEndX(),base1.getEndY());
             gc.strokeLine(base2.getStartX(),base2.getStartY(),base2.getEndX(),base2.getEndY());
             gc.strokeLine(base3.getStartX(),base3.getStartY(),base3.getEndX(),base3.getEndY());
-
+            gc.setLineWidth(4);
         }
         else if (drawCounter == headInd) { //draw the head as oval
             gc.setStroke(Color.BLACK);
