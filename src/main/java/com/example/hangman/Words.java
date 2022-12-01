@@ -10,10 +10,7 @@ public class Words {
 
 
     public void ReadWords() throws FileNotFoundException {
-
         Scanner input = new Scanner(new File("words.txt"));
-
-
         while (input.hasNext())
             words.add(input.next());
 

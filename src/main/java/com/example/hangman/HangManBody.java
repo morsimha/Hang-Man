@@ -19,7 +19,7 @@ public class HangManBody {
         Line line2 = new Line(250, 120, 220, 150);
         Line line3 = new Line(190, 120, 220, 150);
         Line line4 = new Line(190, 250, 220, 200);
-        Line line5 = new Line(190, 250, 220, 200);
+        Line line5 = new Line(250, 250, 220, 200);
 
         //   Rectangle body1 = new Oval(370, 220, 410, 220);
         //     Line line6 = new Line(370, 220, 410, 220);

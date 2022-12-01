@@ -9,11 +9,18 @@ public class HangManLogic {
     boolean correctGuess;
     int triesLeft = 7;
 
+    public void resetGame() {
+        guesses.clear();
+        fullWord = "";
+        currGuess = "";
+        correctGuess = false;
+        triesLeft = 7;
+    }
+
 
     public void prepWordLength(int len) {
         for (int i = 0; i < len; i++)
             currGuess += "_";
-
     }
 
 //    public void getGuess() {
@@ -51,6 +58,10 @@ public class HangManLogic {
             validGuess = false;
 
         return validGuess;
+    }
+
+    public boolean checkWin() {
+        return fullWord.equals(currGuess);
     }
 
 

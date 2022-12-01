@@ -24,7 +24,8 @@ public class HangManController {
     private Label labelWord;
     @FXML
     private Label labelLetters;
-
+    @FXML
+    private Label fieldLable;
     @FXML
     private TextField guessField;
     @FXML
@@ -38,7 +39,7 @@ public class HangManController {
     HangManLogic game;
     HangManBody body;
     private final int TRIES = 7;
-    int drawCounter = 0;
+    int drawCounter;
 
 
     public void initialize() throws FileNotFoundException {
@@ -49,15 +50,18 @@ public class HangManController {
         gc.setLineWidth(5);
         dict.ReadWords();
         body.build();
-        game.fullWord = dict.generateWord(); // maybe private and get\set
-        game.prepWordLength(game.fullWord.length());
-        labelWord.setText(game.currGuess);
-        labelTries.setText("" + game.triesLeft);
+        initGame();
     }
 
     @FXML
     private void btnPressed() {
         String guess = guessField.getText();
+
+        if(guess.equals("Y")) {
+            game.resetGame();
+            initGame();
+        }
+
         if (game.checkValidity(guess))
             runGame(guess);
         else
@@ -65,11 +69,22 @@ public class HangManController {
         guessField.clear();
 
         if (game.triesLeft == 0) {
-            hangTheMan();
-            labelTries.setText(game.triesLeft + "");
-            labelWord.setText(game.fullWord);
+     //       hangTheMan();
             JOptionPane.showMessageDialog(null, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+            finishGame();
         }
+
+        if (game.checkWin())
+          finishGame();
+
+    }
+    private void initGame() {
+        gc.clearRect(0, 0, cnvs.getWidth(), cnvs.getHeight());
+        drawCounter = 0;
+        game.fullWord = dict.generateWord(); // maybe private and get\set
+        game.prepWordLength(game.fullWord.length());
+        labelWord.setText(game.currGuess);
+        labelTries.setText("" + game.triesLeft);
     }
 
     private void runGame(String guess){
@@ -81,11 +96,19 @@ public class HangManController {
         labelLetters.setText(game.guesses.toString());
     }
 
+    private void finishGame(){
+        labelTries.setText(game.triesLeft + "");
+        labelWord.setText(game.fullWord);
+        fieldLable.setText("Would you like to play again? Y/N");
+        gc.setStroke(Color.PINK);
+        Line l = body.bodyParts.get(drawCounter-1);
+        gc.strokeOval(0, 0, 70, 70);
+     //   JOptionPane.showMessageDialog(null, "Play again?", "not Error", JOptionPane.QUESTION_MESSAGE);
+    }
 
     private void hangTheMan(){
         int headInd = 4;
         Line l = body.bodyParts.get(drawCounter);
-
         if (drawCounter == 0) { //first time print the base
             gc.setStroke(Color.SADDLEBROWN);
             Line base1 = body.bodyParts.get(++drawCounter);

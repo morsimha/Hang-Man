@@ -42,7 +42,7 @@
       </Label>
       <HBox alignment="BOTTOM_CENTER" layoutX="35.0" layoutY="374.0" prefHeight="55.0" prefWidth="501.0" spacing="10.0">
          <children>
-            <Label alignment="BOTTOM_CENTER" text="Guess a Letter down here:">
+            <Label fx:id="fieldLable" alignment="BOTTOM_CENTER" text="Guess a Letter down here:">
                <font>
                   <Font size="20.0" />
                </font>
