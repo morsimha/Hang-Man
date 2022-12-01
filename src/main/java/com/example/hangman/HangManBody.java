@@ -21,6 +21,11 @@ public class HangManBody {
         Line line4 = new Line(190, 200, 220, 170);
         Line line5 = new Line(250, 200, 220, 170);
 
+        Line dance1 = new Line(200, 200, 220, 170);
+        Line dance2 = new Line(260, 200, 220, 170);
+        Line dance3 = new Line(180, 200, 220, 170);
+        Line dance4 = new Line(240, 200, 220, 170);
+
         //   Rectangle body1 = new Oval(370, 220, 410, 220);
         //     Line line6 = new Line(370, 220, 410, 220);
 
@@ -34,6 +39,10 @@ public class HangManBody {
         bodyParts.add(line3);
         bodyParts.add(line4);
         bodyParts.add(line5);
+        bodyParts.add(dance1);
+        bodyParts.add(dance2);
+//        bodyParts.add(dance3);
+//        bodyParts.add(dance4);
 
 
 
