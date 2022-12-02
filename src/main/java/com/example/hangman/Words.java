@@ -19,7 +19,7 @@ public class Words {
     public String generateWord(){
 
         Random rand = new Random();
-        String word = words.get(rand.nextInt(words.size()-1));
+        String word = words.get(rand.nextInt(words.size()));
         return word;
     }
 

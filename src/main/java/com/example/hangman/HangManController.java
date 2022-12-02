@@ -89,6 +89,9 @@ public class HangManController {
     private void keepBtnPressed() {
         if (drawCounter < body.getPartsAmount())
             hangTheMan();
+        else
+            JOptionPane.showMessageDialog(null, "Just let him die quietly..", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     private void initGame() {
@@ -106,12 +109,14 @@ public class HangManController {
         if (game.isCorrectGuess().equals("Wrong guess.."))
             hangTheMan();
         updateLabels();
+        upperLabel.setVisible(true);
     }
 
     @FXML
     private void finishGame() {
         game.setGuess(game.getFullWord());
         updateLabels();
+        finished = true;
         finishScene();
     }
 
@@ -137,11 +142,10 @@ public class HangManController {
     }
 
     private void updateLabels() {
+        upperLabel.setText(game.isCorrectGuess());
         wordLabel.setText(game.getGuess());
         triesLabel.setText("" + game.getTriesLeft());
         lettersLabel.setText(game.getLetters());
-        upperLabel.setText(game.isCorrectGuess());
-        upperLabel.setVisible(true);
     }
 
     private void finishScene(){
