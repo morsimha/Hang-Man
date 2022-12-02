@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 public class HangManBody {
     private ArrayList<Line> bodyParts = new ArrayList<Line>();
+    private final int headInd = 4;
 
+    public int getHeadIndex() {
+        return headInd;
+    }
 
     public Line getPart(int index){
         return bodyParts.get(index);

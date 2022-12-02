@@ -30,8 +30,11 @@ public class HangManLogic {
         return currGuess;
     }
 
-    public boolean isCorrectGuess(){
-        return correctGuess;
+    public String isCorrectGuess(){
+        if (correctGuess)
+            return "Great Guess!";
+        else
+            return "Wrong guess..";
     }
 
     public int getTriesLeft(){

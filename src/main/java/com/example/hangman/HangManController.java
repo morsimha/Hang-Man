@@ -40,7 +40,6 @@ public class HangManController {
     private Words dict;
     private HangManLogic game;
     private HangManBody body;
-    private final int TRIES = 7;
     private int drawCounter;
     private boolean finished;
 
@@ -82,7 +81,7 @@ public class HangManController {
 
     @FXML
     private void noBtnPressed() {
-        Platform.exit(); //TODO maybe better solution.
+        Platform.exit();
         JOptionPane.showMessageDialog(null, "Good Bye!", "GoodBye", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -92,12 +91,10 @@ public class HangManController {
             hangTheMan();
     }
 
-
     private void initGame() {
         gc.clearRect(0, 0, cnvs.getWidth(), cnvs.getHeight());
-        finishBox.setVisible(false);
-        guessBox.setVisible(true);
         finished = false;
+        finishScene();
         drawCounter = 0;
         game.setFullWord(dict.generateWord());
         game.prepWordLength(game.getFullWord().length());
@@ -106,24 +103,19 @@ public class HangManController {
 
     private void runGame(String guess) {
         game.checkGuess(guess);
-        if (!game.isCorrectGuess())
+        if (game.isCorrectGuess().equals("Wrong guess.."))
             hangTheMan();
         updateLabels();
-        upperLabel.setVisible(true);
     }
 
     @FXML
     private void finishGame() {
         game.setGuess(game.getFullWord());
         updateLabels();
-        finishBox.setVisible(true);
-        guessBox.setVisible(false);
-        upperLabel.setVisible(false);
-
+        finishScene();
     }
 
     private void hangTheMan() {
-        int headInd = 4;
         Line l = body.getPart(drawCounter);
         if (drawCounter == 0) { //first time print the base
             gc.setStroke(Color.SADDLEBROWN);
@@ -134,27 +126,28 @@ public class HangManController {
             gc.strokeLine(base1.getStartX(), base1.getStartY(), base1.getEndX(), base1.getEndY());
             gc.strokeLine(base2.getStartX(), base2.getStartY(), base2.getEndX(), base2.getEndY());
             gc.strokeLine(base3.getStartX(), base3.getStartY(), base3.getEndX(), base3.getEndY());
+        } else if (drawCounter == body.getHeadIndex()) { //draw the head as oval
             gc.setLineWidth(4);
-        } else if (drawCounter == headInd) { //draw the head as oval
             gc.setStroke(Color.BLACK);
             gc.strokeOval(l.getStartX(), l.getStartY(), l.getEndX(), l.getEndY());
-        } else {//draw normally
-            gc.setStroke(Color.BLACK);
+        } else //draw normally
             gc.strokeLine(l.getStartX(), l.getStartY(), l.getEndX(), l.getEndY());
-        }
+
         drawCounter++;
     }
 
     private void updateLabels() {
-        String result;
-        if (game.isCorrectGuess())
-            result = "Great Guess!";
-        else
-            result = "Wrong guess..";
-        upperLabel.setText(result);
         wordLabel.setText(game.getGuess());
         triesLabel.setText("" + game.getTriesLeft());
         lettersLabel.setText(game.getLetters());
+        upperLabel.setText(game.isCorrectGuess());
+        upperLabel.setVisible(true);
+    }
 
+    private void finishScene(){
+        finishBox.setVisible(finished);
+        guessBox.setVisible(!finished);
+        if (finished)
+            upperLabel.setVisible(!finished);
     }
 }
