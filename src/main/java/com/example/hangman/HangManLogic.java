@@ -2,12 +2,14 @@ package com.example.hangman;
 
 import java.util.ArrayList;
 
+
 public class HangManLogic {
+    private final int TRIES = 7;
     private ArrayList<String> guesses = new ArrayList<String>();
     private String fullWord;
     private String currGuess = "";
     private boolean correctGuess;
-    private int triesLeft = 7;
+    private int triesLeft = TRIES;
 
     public String getLetters(){
         if (guesses.size() == 0)
@@ -20,7 +22,7 @@ public class HangManLogic {
         fullWord = "";
         currGuess = "";
         correctGuess = false;
-        triesLeft = 7;
+        triesLeft = TRIES;
     }
 
     public String getFullWord(){
@@ -39,10 +41,6 @@ public class HangManLogic {
 
     public int getTriesLeft(){
         return triesLeft;
-    }
-
-    public ArrayList getGuessesList(){
-        return guesses;
     }
 
     public void setFullWord(String word){
