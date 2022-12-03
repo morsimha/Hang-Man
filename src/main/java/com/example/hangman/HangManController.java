@@ -87,11 +87,12 @@ public class HangManController {
 
     @FXML
     private void keepBtnPressed() {
-        if (drawCounter < body.getPartsAmount())
+        try {
             hangTheMan();
-        else
+        }
+        catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Just let him die quietly..", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-
+        }
     }
 
     private void initGame() {
