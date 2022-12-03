@@ -2,7 +2,6 @@ package com.example.hangman;
 
 import java.util.ArrayList;
 
-
 public class HangManLogic {
     private final int TRIES = 7;
     private ArrayList<String> guesses = new ArrayList<String>();
