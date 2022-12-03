@@ -28,6 +28,8 @@ public class HangManController {
     @FXML
     private Label upperLabel;
     @FXML
+    private Label greetLabel;
+    @FXML
     private VBox finishBox;
     @FXML
     private HBox guessBox;
@@ -42,6 +44,7 @@ public class HangManController {
     private HangManBody body;
     private int drawCounter;
     private boolean finished;
+    private boolean win;
 
 
     public void initialize() throws FileNotFoundException {
@@ -67,10 +70,12 @@ public class HangManController {
         if (game.getTriesLeft() == 0) {
             JOptionPane.showMessageDialog(null, "Game Over!\nYou have passed the guesses limit.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
             finished = true;
-        }
-
-        if (finished || game.checkWin())
             finishGame();
+        }
+        else if (game.checkWin()) {
+            win = true;
+            finishGame();
+        }
     }
 
     @FXML
@@ -98,6 +103,7 @@ public class HangManController {
     private void initGame() {
         gc.clearRect(0, 0, cnvs.getWidth(), cnvs.getHeight());
         finished = false;
+        win = false;
         finishScene();
         drawCounter = 0;
         game.setFullWord(dict.generateWord());
@@ -150,6 +156,7 @@ public class HangManController {
     }
 
     private void finishScene(){
+        greetLabel.setText(game.finalMessage(win));
         finishBox.setVisible(finished);
         guessBox.setVisible(!finished);
         if (finished)

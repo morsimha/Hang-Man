@@ -38,6 +38,13 @@ public class HangManLogic {
             return "Wrong guess..";
     }
 
+    public String finalMessage(boolean win){
+        if (win)
+            return "Congrats!";
+        else
+            return "Almost..";
+    }
+
     public int getTriesLeft(){
         return triesLeft;
     }
@@ -64,10 +71,9 @@ public class HangManLogic {
             triesLeft--;
     }
 
-
     public boolean checkValidity(String guess) {
         boolean validGuess = true;
-        if (guess.length() == 1 && Character.isLetter(guess.charAt(0))) { // if its valid, check it didnt show yet
+        if (guess.length() == 1 && guess.matches("[a-zA-Z]+")) { // if its valid, check it didn't show yet
             for (String g : guesses)
                 if (guess.equals(g)) {
                     validGuess = false;
