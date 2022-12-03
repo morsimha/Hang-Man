@@ -153,6 +153,6 @@ public class HangManController {
         finishBox.setVisible(finished);
         guessBox.setVisible(!finished);
         if (finished)
-            upperLabel.setVisible(!finished);
+            upperLabel.setVisible(false);
     }
 }
