@@ -69,7 +69,6 @@ public class HangManController {
 
         if (game.getTriesLeft() == 0) {
             JOptionPane.showMessageDialog(null, "Game Over!\nYou have passed the guesses limit.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-            finished = true;
             finishGame();
         }
         else if (game.checkWin()) {

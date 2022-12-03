@@ -15,10 +15,6 @@ public class HangManBody {
         return bodyParts.get(index);
     }
 
-    public int getPartsAmount(){
-        return bodyParts.size();
-    }
-
     public void build() {
 
         Line base1 = new Line(370, 220, 410, 220);
