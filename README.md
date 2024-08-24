@@ -9,3 +9,5 @@ This project is a JavaFX implementation of the classic Hangman game, developed a
 - **Game Reset:** Users can reset the game and play again or exit the application.
 - **Word Management:** The game reads words from a dictionary file to use as the hidden word for each session.
 
+![Hangman](https://github.com/morsimha/Hang-Man/blob/main/hangman.jpg?raw=true)
+
